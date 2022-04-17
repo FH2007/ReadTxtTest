@@ -72,7 +72,8 @@ namespace TestApp
                             foreach (string line in txtList)
                             {
                                 Str item = new Str(line);
-                                if (check.Check(item.Id, item.key, item.value))
+                                if (check.Check(item.id, item.key, item.value))
+                                    
                                 {
                                     if (Dictionary.ContainsKey(item.key))
                                     {
@@ -86,7 +87,7 @@ namespace TestApp
                                 else
                                 {
                                     List.Add(line);
-                                    Fails.Add(item.Id);
+                                    Fails.Add(item.id);
                                 }
                             }
                             if (List.Count > 0)
@@ -131,19 +132,19 @@ namespace TestApp
     }
     interface IStr
     {
-        static int id;
-        static string key;
-        static int value;
+        int id { get; }
+        string key { get; }
+        int value { get; }
     }
     internal class Str : IStr
     {
-        public int Id { get; private set; }
+        public int id { get; private set; }
         public string key { get; private set; }
         public int value { get; private set; }
         public Str(string data)
         {
             var resultNums = new Regex("[0-9]+").Matches(data);
-            this.Id = Int32.Parse(resultNums[0].Value);
+            //this.Id = Int32.Parse(resultNums[0].Value);
             this.value = Int32.Parse(resultNums[1].Value);
             string temp = data.Remove(0, resultNums[0].Value.Length);
             this.key = temp.Remove(temp.Length - resultNums[1].Value.Length, resultNums[1].Value.Length);
